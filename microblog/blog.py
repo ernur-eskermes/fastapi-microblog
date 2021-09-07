@@ -4,10 +4,8 @@ from core.fast_users import fastapi_users
 from microblog import service
 from microblog.schemas import (
     PostCreate,
-    # PostList,
     Post,
-    PostUpdate,
-    PostCreateInDB
+    PostUpdate
 )
 from user.models import User
 
@@ -19,7 +17,8 @@ async def post_list():
     return await service.get_post_list()
 
 
-@router.post("/", status_code=201, response_model=PostCreateInDB)
+@router.post("/", status_code=201, response_model=Post,
+             response_model_exclude={'date'})
 async def post_create(
         item: PostCreate,
         user: User = Depends(fastapi_users.get_current_active_user)

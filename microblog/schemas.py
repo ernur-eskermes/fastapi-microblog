@@ -11,7 +11,7 @@ class PostBase(BaseModel):
 
 class Post(PostBase):
     id: int
-    date: datetime
+    date: Optional[datetime]
     user: UserInPost
 
 
@@ -20,11 +20,6 @@ class PostCreate(PostBase):
 
     class Config:
         orm_mode = True
-
-
-class PostCreateInDB(PostCreate):
-    id: int
-    user: UserInPost
 
 
 class PostUpdate(PostBase):
